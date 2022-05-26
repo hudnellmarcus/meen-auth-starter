@@ -20,18 +20,21 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
     session({
         secret: process.env.SECRET,
-        resave: false
+        resave: false,
+        saveUninitialized: false
     })
-)
-
-// Routes / Controllers
-const userController = require('./controllers/users');
-app.use('/users', userController);
-
-
-
-
-
+    );
+    
+    // Routes / Controllers
+    const userController = require('./controllers/users');
+    app.use('/users', userController);
+    
+    const sessionsController = require('./controllers/sessions')
+    app.use('/sessions', sessionsController);
+    
+    
+    
+    
 
 
 
