@@ -4,7 +4,7 @@ const { default: mongoose } = require('mongoose');
 const app = express();
 require('dotenv').config();
 const session = require('express-session');
-
+const methodOverride = require('method-override');
 
 // Configure Database
 mongoose.connect(process.env.DATABASE_URL, {
@@ -16,6 +16,7 @@ mongoose.connect(process.env.DATABASE_URL, {
 // Middleware
 // Body parser middleware: give us access to req.body
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 app.use(
     session({
@@ -34,6 +35,16 @@ app.use(
     
     
     
+    app.get('/', (req, res) => {
+        if (req.session.currentUser) {
+            res.render('dashboard.ejs', {
+                currentUser: req.session.currentUser
+            });
+        }else {
+        res.render('index.ejs', {
+            currentUser: req.session.currentUser
+          });
+   } })
     
 
 

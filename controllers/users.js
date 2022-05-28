@@ -6,6 +6,13 @@ const User = require('../models/user.js');
 
 
 // New (registration page)
+router.get('/new', (req, res) => {
+    res.render('users/new.ejs', {
+        currentUser: req.session.curentUser
+    });
+});
+
+
 
 // Create (registration route)
 router.post('/', (req, res) => {
